@@ -9,6 +9,7 @@ import {
 } from '@heroicons/react/24/outline'
 import Home from '../Home'
 import NotFound from '../NotFound'
+import Tourists from '../Tourists'
 
 
 const bucket_statics = import.meta.env.VITE_FRONTEND_ASSETS
@@ -16,7 +17,7 @@ const helmcode_logo = `${bucket_statics}/logo_transparent.png`
 
 const navigation = [
     { name: 'Home', href: '/', icon: HomeIcon, current: true },
-    { name: 'Tourists', href: '/404', icon: UserGroupIcon, current: false },
+    { name: 'Tourists', href: '/tourists', icon: UserGroupIcon, current: false },
 ]
 
 function classNames(...classes) {
@@ -27,6 +28,7 @@ const AppRoutes = () => {
 	let routes = useRoutes([
 		{ path: '/', element: <Home /> },
 		{ path: '/*', element: <NotFound /> },
+		{ path: '/tourists', element: <Tourists /> },
 	])
 
 	return routes
