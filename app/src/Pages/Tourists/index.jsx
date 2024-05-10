@@ -13,7 +13,7 @@ export default function Tourists() {
                     textColor: 'black',
                     background: {
                         type: 'solid',
-                        color: 'white'
+                        color: '#f5f3ff'
                     }
                 }
             };
@@ -21,19 +21,57 @@ export default function Tourists() {
             const histogramSeries = chartRef.current.addHistogramSeries({ color: '#26a69a' });
 
             const data = [
-                { value: 1, time: 1642425322 },
-                { value: 8, time: 1642511722 },
-                { value: 10, time: 1642598122 },
-                { value: 20, time: 1642684522 },
-                { value: 3, time: 1642770922, color: 'red' },
-                { value: 43, time: 1642857322 },
-                { value: 41, time: 1642943722, color: 'red' },
-                { value: 43, time: 1643030122 },
-                { value: 56, time: 1643116522 },
-                { value: 46, time: 1643202922, color: 'red' }
-            ];
+                {
+                    "autonomous_community": "Madrid, Comunidad de",
+                    "year": 2024,
+                    "month": 3,
+                    "total": 711554
+                },
+                {
+                    "autonomous_community": "Madrid, Comunidad de",
+                    "year": 2024,
+                    "month": 2,
+                    "total": 585156
+                },
+                {
+                    "autonomous_community": "Madrid, Comunidad de",
+                    "year": 2024,
+                    "month": 1,
+                    "total": 609325
+                },
+                {
+                    "autonomous_community": "Madrid, Comunidad de",
+                    "year": 2023,
+                    "month": 12,
+                    "total": 605809
+                },
+                {
+                    "autonomous_community": "Madrid, Comunidad de",
+                    "year": 2023,
+                    "month": 11,
+                    "total": 673552
+                },
+                {
+                    "autonomous_community": "Madrid, Comunidad de",
+                    "year": 2023,
+                    "month": 10,
+                    "total": 822942
+                }
+            ]
 
-            histogramSeries.setData(data);
+            const formattedData = data
+                .map(item => ({
+                    time: { year: item.year, month: item.month - 1, day: 1 },
+                    value: item.total
+                }))
+                .sort((a, b) => {
+                    const dateA = new Date(a.time.year, a.time.month, a.time.day);
+                    const dateB = new Date(b.time.year, b.time.month, b.time.day);
+                    return dateA - dateB;
+                }
+            );
+
+            histogramSeries.setData(formattedData);
             chartRef.current.timeScale().fitContent();
         }
     }, []);
