@@ -4,16 +4,19 @@ import { Dialog, Transition } from '@headlessui/react'
 import {
     Bars3Icon,
     HomeIcon,
-    UsersIcon,
+    UserGroupIcon,
     XMarkIcon,
 } from '@heroicons/react/24/outline'
 import Home from '../Home'
 import NotFound from '../NotFound'
 
 
+const bucket_statics = import.meta.env.VITE_FRONTEND_ASSETS
+const helmcode_logo = `${bucket_statics}/logo_transparent.png`
+
 const navigation = [
-    { name: 'Dashboard', href: '/', icon: HomeIcon, current: true },
-    { name: 'Team', href: '/patata', icon: UsersIcon, current: false },
+    { name: 'Home', href: '/', icon: HomeIcon, current: true },
+    { name: 'Tourists', href: '/404', icon: UserGroupIcon, current: false },
 ]
 
 function classNames(...classes) {
@@ -80,9 +83,9 @@ export default function App() {
 									<div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6 pb-2 ring-1 ring-white/10">
 										<div className="flex h-16 shrink-0 items-center">
 											<img
-												className="h-8 w-auto"
-												src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-												alt="Your Company"
+												className="h-20 w-20"
+												src={helmcode_logo}
+												alt="Helmcode Company"
 											/>
 										</div>
 										<nav className="flex flex-1 flex-col">
@@ -120,8 +123,8 @@ export default function App() {
 					<div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-900 px-6">
 						<div className="flex h-16 shrink-0 items-center">
 							<img
-								className="h-8 w-auto"
-								src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+								className="h-24 w-24"
+								src={helmcode_logo}
 								alt="Your Company"
 							/>
 						</div>
