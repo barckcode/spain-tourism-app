@@ -1,13 +1,50 @@
 import { createChart } from 'lightweight-charts';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+
+
+const spain_turism_api_url = import.meta.env.VITE_SPAIN_TURISM_API
 
 
 export default function Tourists() {
     const containerRef = useRef();
     const chartRef = useRef();
+    const [data, setData] = useState([]);
 
     useEffect(() => {
-        if (!chartRef.current) {
+        const fetchData = async () => {
+            // Example Data:
+            // [
+            //     {
+            //       "autonomous_community": "Madrid, Comunidad de",
+            //       "time": "2015-10-01",
+            //       "value": 562247
+            //     },
+            //     {
+            //       "autonomous_community": "Madrid, Comunidad de",
+            //       "time": "2015-11-01",
+            //       "value": 371205
+            //     },
+            //     {
+            //       "autonomous_community": "Madrid, Comunidad de",
+            //       "time": "2015-12-01",
+            //       "value": 332461
+            //     },
+            //     {
+            //       "autonomous_community": "Madrid, Comunidad de",
+            //       "time": "2016-01-01",
+            //       "value": 397420
+            //     }
+            // ]
+            const response = await fetch(`${spain_turism_api_url}/tourists?autonomous_community=madrid`);
+            const jsonData = await response.json();
+            setData(jsonData);
+        };
+
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        if (!chartRef.current && data.length > 0) {
             const chartOptions = {
                 layout: {
                     textColor: 'black',
@@ -20,61 +57,10 @@ export default function Tourists() {
             chartRef.current = createChart(containerRef.current, chartOptions);
             const histogramSeries = chartRef.current.addHistogramSeries({ color: '#26a69a' });
 
-            const data = [
-                {
-                    "autonomous_community": "Madrid, Comunidad de",
-                    "year": 2024,
-                    "month": 3,
-                    "total": 711554
-                },
-                {
-                    "autonomous_community": "Madrid, Comunidad de",
-                    "year": 2024,
-                    "month": 2,
-                    "total": 585156
-                },
-                {
-                    "autonomous_community": "Madrid, Comunidad de",
-                    "year": 2024,
-                    "month": 1,
-                    "total": 609325
-                },
-                {
-                    "autonomous_community": "Madrid, Comunidad de",
-                    "year": 2023,
-                    "month": 12,
-                    "total": 605809
-                },
-                {
-                    "autonomous_community": "Madrid, Comunidad de",
-                    "year": 2023,
-                    "month": 11,
-                    "total": 673552
-                },
-                {
-                    "autonomous_community": "Madrid, Comunidad de",
-                    "year": 2023,
-                    "month": 10,
-                    "total": 822942
-                }
-            ]
-
-            const formattedData = data
-                .map(item => ({
-                    time: { year: item.year, month: item.month - 1, day: 1 },
-                    value: item.total
-                }))
-                .sort((a, b) => {
-                    const dateA = new Date(a.time.year, a.time.month, a.time.day);
-                    const dateB = new Date(b.time.year, b.time.month, b.time.day);
-                    return dateA - dateB;
-                }
-            );
-
-            histogramSeries.setData(formattedData);
+            histogramSeries.setData(data);
             chartRef.current.timeScale().fitContent();
         }
-    }, []);
+    }, [data]);
 
     return (
         <>
