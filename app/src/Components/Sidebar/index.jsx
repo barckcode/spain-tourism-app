@@ -6,7 +6,7 @@ import {
     Bars3Icon,
     XMarkIcon,
 } from '@heroicons/react/24/outline'
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 
@@ -80,8 +80,8 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, helmcode_logo }) 
 												<ul role="list" className="-mx-2 space-y-1">
 													{navigation.map((item) => (
 														<li key={item.name}>
-															<a
-															href={item.href}
+															<Link
+															to={item.href}
 															className={classNames(
 																item.current
 																? 'bg-gray-800 text-white'
@@ -91,7 +91,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, helmcode_logo }) 
 															>
 															<item.icon className="h-6 w-6 shrink-0" aria-hidden="true" />
 															{item.name}
-															</a>
+															</Link>
 														</li>
 													))}
 												</ul>
@@ -120,8 +120,8 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, helmcode_logo }) 
 								<ul role="list" className="-mx-2 space-y-1">
 									{navigation.map((item) => (
 										<li key={item.name}>
-											<a
-											href={item.href}
+											<Link
+											to={item.href}
 											className={classNames(
 												item.current
 												? 'bg-gray-800 text-white'
@@ -131,7 +131,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, helmcode_logo }) 
 											>
 											<item.icon className="h-6 w-6 shrink-0" aria-hidden="true" />
 											{item.name}
-											</a>
+											</Link>
 										</li>
 									))}
 								</ul>

@@ -47,7 +47,8 @@ export default function Tourists() {
 
     return (
         <>
-            <h1 className='font-bold text-center' >Nº total de turistas de las comunidades autónomas con más afluencia de turistas</h1>
+            <h1 className='font-bold text-center text-xl' >Nº total de turistas de las comunidades autónomas con más afluencia de turistas</h1>
+            <h6 className='pt-8 font-bold text-center text-xs' >Datos desde 10/2015 al 03/2024</h6>
             <div className="mx-auto h-52 w-52 pt-20">
                 <Combobox value={selected} onChange={(value) => setSelected(value)}>
                     <div className="relative">
@@ -88,7 +89,6 @@ export default function Tourists() {
                 </Combobox>
             </div>
             <HistogramChart data={data} />
-            <h6 className='pt-8 font-bold text-center text-sm' >Datos: 10/2015 - 03/2024</h6>
         </>
     )
 }
