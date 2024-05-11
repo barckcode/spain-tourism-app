@@ -20,7 +20,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, helmcode_logo }) 
 
     const navigation = [
         { name: 'Home', href: '/', icon: HomeIcon, current: location.pathname === '/' },
-        { name: 'Tourists', href: '/tourists', icon: UserGroupIcon, current: location.pathname === '/tourists' },
+        { name: 'Turistas', href: '/tourists', icon: UserGroupIcon, current: location.pathname === '/tourists' },
     ]
 
     return (
@@ -137,7 +137,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, helmcode_logo }) 
 								</ul>
 							</li>
 							<li className="-mx-6 mt-auto">
-								<p className="px-6 py-3 text-xs font-semibold leading-6 text-white" aria-hidden="true"> From the Canary Islands to the 🌎</p>
+								<p className="px-6 py-3 text-xs font-semibold leading-6 text-white" aria-hidden="true"> 🇮🇨 De Canarias para el 🌎</p>
 							</li>
 						</ul>
 					</nav>

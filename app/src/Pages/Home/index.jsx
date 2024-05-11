@@ -26,7 +26,7 @@ export default function Home() {
                         <p className="mt-6 text-lg leading-8 text-gray-600">
                             Datos obtenidos de organismos públicos como el Instituto Nacional de Estadística y ayuntamientos de diferentes comunidades autónomas.
                         </p>
-                        <a href="https://github.com/barckcode/spain-turism-app" className="text-base font-semibold leading-6 text-gray-900">
+                        <a href="https://github.com/barckcode/spain-turism-app" target="_blank" rel="noopener noreferrer" className="text-base font-semibold leading-6 text-gray-900">
                             <div className="mt-10 flex items-center justify-center gap-x-2">
                                 <FaGithub />
                                 <span aria-hidden="true">Github</span>
@@ -36,7 +36,7 @@ export default function Home() {
                     <div className="text-center py-8 sm:mb-8 sm:flex sm:justify-center">
                         <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
                         Sitio web creado por: {' '}
-                        <a href="https://twitter.com/barckcode" className="font-semibold text-indigo-600">
+                        <a href="https://twitter.com/barckcode" target="_blank" rel="noopener noreferrer" className="font-semibold text-indigo-600">
                             <span className="absolute inset-0" aria-hidden="true" />
                             @barckcode <span aria-hidden="true">&rarr;</span>
                         </a>
