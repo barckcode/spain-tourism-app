@@ -1,4 +1,3 @@
-import { useRoutes, BrowserRouter } from "react-router-dom"
 import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import {
@@ -7,9 +6,7 @@ import {
     UserGroupIcon,
     XMarkIcon,
 } from '@heroicons/react/24/outline'
-import Home from '../Home'
-import NotFound from '../NotFound'
-import Tourists from '../Tourists'
+import AppRoutes from "../../Components/Routes"
 
 
 const bucket_statics = import.meta.env.VITE_FRONTEND_ASSETS
@@ -22,16 +19,6 @@ const navigation = [
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
-}
-
-const AppRoutes = () => {
-	let routes = useRoutes([
-		{ path: '/', element: <Home /> },
-		{ path: '/*', element: <NotFound /> },
-		{ path: '/tourists', element: <Tourists /> },
-	])
-
-	return routes
 }
 
 
@@ -170,9 +157,7 @@ export default function App() {
 
                 <main className="py-10 lg:pl-72">
 					<div className="px-4 sm:px-6 lg:px-8">
-						<BrowserRouter>
-							<AppRoutes />
-						</BrowserRouter>
+						<AppRoutes />
 					</div>
                 </main>
             </div>
