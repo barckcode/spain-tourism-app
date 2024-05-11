@@ -3,6 +3,7 @@ import { Combobox, ComboboxButton, ComboboxInput, ComboboxOption, ComboboxOption
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
 import clsx from 'clsx'
 import HistogramChart from "../../Components/HistogramChart"
+import DinamicTable from '../../Components/DinamicTable';
 
 
 const spain_turism_api_url = import.meta.env.VITE_SPAIN_TURISM_API
@@ -45,10 +46,39 @@ export default function Tourists() {
         fetchData();
     }, [selected]);
 
+    const dataByYear = data.reduce((acc, item) => {
+        const year = new Date(item.time).getFullYear();
+        if (!acc[year]) {
+            acc[year] = [];
+        }
+        acc[year].push(item);
+        return acc;
+    }, {});
+
+    const maxTouristsByYear = Object.entries(dataByYear).map(([, data]) => {
+        const maxTouristsMonth = data.reduce((max, item) => {
+            if (!max || parseFloat(item.value) > parseFloat(max.value)) {
+                return item;
+            }
+            return max;
+        }, null);
+        return maxTouristsMonth;
+    });
+
+    const minTouristsByYear = Object.entries(dataByYear).map(([, data]) => {
+        const minTouristsMonth = data.reduce((min, item) => {
+            if (!min || parseFloat(item.value) < parseFloat(min.value)) {
+                return item;
+            }
+            return min;
+        }, null);
+        return minTouristsMonth;
+    });
+
     return (
         <>
-            <h1 className='font-bold text-center text-xl' >Nº total de turistas de las comunidades autónomas con más afluencia de turistas</h1>
-            <h6 className='pt-8 font-bold text-center text-xs' >Datos desde 10/2015 al 03/2024</h6>
+            <h1 className='font-bold text-center text-2xl' >Comunidades Autónomas con más afluencia de turistas</h1>
+            <h6 className='pt-8 font-bold text-center text-xs' >Datos desde el 10/2015 al 03/2024</h6>
             <div className="mx-auto h-52 w-52 pt-20">
                 <Combobox value={selected} onChange={(value) => setSelected(value)}>
                     <div className="relative">
@@ -89,6 +119,11 @@ export default function Tourists() {
                 </Combobox>
             </div>
             <HistogramChart data={data} />
+
+            <div className="pt-16 w-full text-left grid grid-cols-1 gap-6 justify-items-center sm:grid-cols-2">
+                <DinamicTable data={maxTouristsByYear} title="Mes con más turistas por año" />
+                <DinamicTable data={minTouristsByYear} title="Mes con menos turistas por año" />
+            </div>
         </>
     )
 }

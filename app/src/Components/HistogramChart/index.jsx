@@ -21,7 +21,7 @@ export default function HistogramChart({ data }) {
             };
             if (!chartRef.current) {
                 chartRef.current = createChart(containerRef.current, chartOptions);
-                histogramSeriesRef.current = chartRef.current.addHistogramSeries({ color: '#26a69a' });
+                histogramSeriesRef.current = chartRef.current.addHistogramSeries({ color: '#4f46e5' });
             }
 
             histogramSeriesRef.current.setData(data);
