@@ -3,6 +3,7 @@ import { Combobox, ComboboxButton, ComboboxInput, ComboboxOption, ComboboxOption
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
 import clsx from 'clsx'
 import HistogramChart from "../../Components/HistogramChart"
+import LineChart from '../../Components/LineChart';
 import DinamicTable from '../../Components/DinamicTable';
 
 
@@ -20,6 +21,7 @@ const communities = [
 
 export default function Tourists() {
     const [data, setData] = useState([]);
+    const [lineChartData, setLineChartData] = useState([]);
     const [query, setQuery] = useState('')
     const [selected, setSelected] = useState(communities[0])
 
@@ -44,6 +46,22 @@ export default function Tourists() {
         };
 
         fetchData();
+    }, [selected]);
+
+    useEffect(() => {
+        const fetchLineChartData = async () => {
+            if (selected) {
+                const response = await fetch(`${spain_turism_api_url}/tourists?autonomous_community=${decodeURIComponent(selected.name)}&data_type=variaci%C3%B3n%20anual`);
+                if (response.ok) {
+                    const jsonData = await response.json();
+                    setLineChartData(jsonData);
+                } else {
+                    console.error('Error fetching line chart data:', response.status, response.statusText);
+                }
+            }
+        };
+
+        fetchLineChartData();
     }, [selected]);
 
     const dataByYear = data.reduce((acc, item) => {
@@ -78,7 +96,7 @@ export default function Tourists() {
     return (
         <>
             <h1 className='font-bold text-center text-2xl' >Comunidades Autónomas con más afluencia de turistas</h1>
-            <h6 className='pt-8 font-bold text-center text-xs' >Datos desde el 10/2015 al 03/2024</h6>
+            <p className='pt-8 font-bold text-center text-xs' >Datos desde el 10/2015 al 03/2024</p>
             <div className="mx-auto h-52 w-52 pt-20">
                 <Combobox value={selected} onChange={(value) => setSelected(value)}>
                     <div className="relative">
@@ -118,12 +136,16 @@ export default function Tourists() {
                     </Transition>
                 </Combobox>
             </div>
+            <h2 className='font-bold text-center text-xl' >Nº total de turistas al año</h2>
             <HistogramChart data={data} />
 
             <div className="pt-16 w-full text-left grid grid-cols-1 gap-6 justify-items-center sm:grid-cols-2">
                 <DinamicTable data={maxTouristsByYear} title="Mes con más turistas por año" />
                 <DinamicTable data={minTouristsByYear} title="Mes con menos turistas por año" />
             </div>
+
+            <h2 className='pt-16 font-bold text-center text-xl' >Tasa de variación anual</h2>
+            <LineChart data={lineChartData} />
         </>
     )
 }
