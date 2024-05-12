@@ -23,6 +23,9 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, helmcode_logo }) 
         { name: 'Turistas', href: '/tourists', icon: UserGroupIcon, current: location.pathname === '/tourists' },
     ]
 
+    const currentPage = navigation.find(item => item.href === location.pathname);
+    const currentPageName = currentPage ? currentPage.name : 'Dashboard';
+
     return (
         <>
 			<Transition.Root show={sidebarOpen} as={Fragment}>
@@ -81,13 +84,14 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, helmcode_logo }) 
 													{navigation.map((item) => (
 														<li key={item.name}>
 															<Link
-															to={item.href}
-															className={classNames(
-																item.current
-																? 'bg-gray-800 text-white'
-																: 'text-gray-400 hover:text-white hover:bg-gray-800',
-																'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
-															)}
+																to={item.href}
+																className={classNames(
+																	item.current
+																	? 'bg-gray-800 text-white'
+																	: 'text-gray-400 hover:text-white hover:bg-gray-800',
+																	'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
+																)}
+																onClick={() => setSidebarOpen(false)}
 															>
 															<item.icon className="h-6 w-6 shrink-0" aria-hidden="true" />
 															{item.name}
@@ -121,13 +125,13 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, helmcode_logo }) 
 									{navigation.map((item) => (
 										<li key={item.name}>
 											<Link
-											to={item.href}
-											className={classNames(
-												item.current
-												? 'bg-gray-800 text-white'
-												: 'text-gray-400 hover:text-white hover:bg-gray-800',
-												'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
-											)}
+												to={item.href}
+												className={classNames(
+													item.current
+													? 'bg-gray-800 text-white'
+													: 'text-gray-400 hover:text-white hover:bg-gray-800',
+													'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
+												)}
 											>
 											<item.icon className="h-6 w-6 shrink-0" aria-hidden="true" />
 											{item.name}
@@ -149,7 +153,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, helmcode_logo }) 
 					<span className="sr-only">Open sidebar</span>
 					<Bars3Icon className="h-6 w-6" aria-hidden="true" />
 				</button>
-				<div className="flex-1 text-sm font-semibold leading-6 text-white">Dashboard</div>
+				<div className="flex-1 text-sm font-semibold leading-6 text-white">{currentPageName}</div>
 			</div>
         </>
     )
