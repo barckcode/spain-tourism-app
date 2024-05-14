@@ -4,6 +4,7 @@ import HistogramChart from "../../Components/HistogramChart"
 import LineChart from '../../Components/LineChart';
 import DinamicTable from '../../Components/DinamicTable';
 import useTouristData from '../../hooks/data/useTouristData';
+import useTouristDataProcessing from '../../hooks/data/useTouristDataProcessing';
 
 
 const communities = [
@@ -20,35 +21,7 @@ export default function Tourists() {
     const [selected, setSelected] = useState(communities[0])
     const [query, setQuery] = useState('')
     const {histogramChartData, lineChartData, isLoading, error} = useTouristData(selected)
-
-    const dataByYear = histogramChartData.reduce((acc, item) => {
-        const year = new Date(item.time).getFullYear();
-        if (!acc[year]) {
-            acc[year] = [];
-        }
-        acc[year].push(item);
-        return acc;
-    }, {});
-
-    const maxTouristsByYear = Object.entries(dataByYear).map(([, data]) => {
-        const maxTouristsMonth = data.reduce((max, item) => {
-            if (!max || parseFloat(item.value) > parseFloat(max.value)) {
-                return item;
-            }
-            return max;
-        }, null);
-        return maxTouristsMonth;
-    });
-
-    const minTouristsByYear = Object.entries(dataByYear).map(([, data]) => {
-        const minTouristsMonth = data.reduce((min, item) => {
-            if (!min || parseFloat(item.value) < parseFloat(min.value)) {
-                return item;
-            }
-            return min;
-        }, null);
-        return minTouristsMonth;
-    });
+    const { maxTouristsByYear, minTouristsByYear } = useTouristDataProcessing(histogramChartData);
 
     return (
         <>
