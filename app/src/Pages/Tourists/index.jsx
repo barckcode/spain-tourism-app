@@ -33,7 +33,6 @@ export default function Tourists() {
                 setSelected={setSelected}
             />
             {isLoading ? (
-                // <p>Cargando datos...</p>
                 <div className='flex justify-center items-center h-full'>
                     <Spinner />
                 </div>
