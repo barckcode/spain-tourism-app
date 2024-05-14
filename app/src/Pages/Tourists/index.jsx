@@ -20,8 +20,8 @@ const communities = [
 
 export default function Tourists() {
     const [selected, setSelected] = useState(communities[0])
-    const {histogramChartData, lineChartData, isLoading, error} = useTouristData(selected)
-    const { maxTouristsByYear, minTouristsByYear } = useTouristDataProcessing(histogramChartData);
+    const {dataBase, annualVariationData, accumulatedAnnualData, isLoading, error} = useTouristData(selected)
+    const { maxTouristsByYear, minTouristsByYear, lastValidDataByYear } = useTouristDataProcessing(dataBase, accumulatedAnnualData);
 
     return (
         <>
@@ -42,15 +42,16 @@ export default function Tourists() {
             ) : (
                 <>
                     <h2 className='font-bold text-center text-xl' >Nº total de turistas al año</h2>
-                    <HistogramChart data={histogramChartData} />
+                    <HistogramChart data={dataBase} />
 
-                    <div className="pt-16 w-full text-left grid grid-cols-1 gap-6 justify-items-center sm:grid-cols-2">
+                    <div className="pt-16 w-full text-left grid grid-cols-1 gap-6 justify-items-center sm:grid-cols-3">
+                        <DinamicTable data={lastValidDataByYear} title="Total de turistas por año" />
                         <DinamicTable data={maxTouristsByYear} title="Mes con más turistas por año" />
                         <DinamicTable data={minTouristsByYear} title="Mes con menos turistas por año" />
                     </div>
 
                     <h2 className='pt-16 font-bold text-center text-xl' >Tasa de variación anual</h2>
-                    <LineChart data={lineChartData} />
+                    <LineChart data={annualVariationData} />
                 </>
             )}
         </>

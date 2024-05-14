@@ -2,13 +2,14 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 
-export default function useTouristDataProcessing(histogramData) {
+export default function useTouristDataProcessing(dataBase, accumulatedAnnualData) {
     const [maxTouristsByYear, setMaxTouristsByYear] = useState([]);
     const [minTouristsByYear, setMinTouristsByYear] = useState([]);
+    const [lastValidDataByYear, setLastValidDataByYear] = useState([]);
 
     useEffect(() => {
         const processData = () => {
-            const dataByYear = histogramData.reduce((acc, item) => {
+            const dataByYear = dataBase.reduce((acc, item) => {
                 const year = new Date(item.time).getFullYear();
                 if (!acc[year]) {
                     acc[year] = [];
@@ -29,14 +30,33 @@ export default function useTouristDataProcessing(histogramData) {
             setMinTouristsByYear(minData);
         };
 
-        if (histogramData.length > 0) {
+        if (dataBase.length > 0) {
             processData();
         }
-    }, [histogramData]);
+    }, [dataBase]);
 
-    return { maxTouristsByYear, minTouristsByYear };
+    useEffect(() => {
+        const processAccumulatedData = () => {
+            const dataByYear = {};
+
+            accumulatedAnnualData.forEach(item => {
+                const year = new Date(item.time).getFullYear();
+                if (item.value !== null && (!dataByYear[year] || new Date(item.time) > new Date(dataByYear[year].time))) {
+                    dataByYear[year] = item;
+                }
+            });
+
+            setLastValidDataByYear(Object.values(dataByYear));
+        };
+
+        if (accumulatedAnnualData.length > 0) {
+            processAccumulatedData();
+        }
+    }, [accumulatedAnnualData]);
+
+    return { maxTouristsByYear, minTouristsByYear, lastValidDataByYear };
 }
 
 useTouristDataProcessing.propTypes = {
-    histogramData: PropTypes.array.isRequired,
+    dataBase: PropTypes.array.isRequired,
 };
