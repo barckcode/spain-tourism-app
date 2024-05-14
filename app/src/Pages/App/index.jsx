@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import AppRoutes from "../../Components/Routes"
+import AppRoutes from "../../Routes"
 import Sidebar from '../../Components/Sidebar'
 
 

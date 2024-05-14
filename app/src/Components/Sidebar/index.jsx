@@ -3,6 +3,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import {
     HomeIcon,
     UserGroupIcon,
+	PaperAirplaneIcon,
     Bars3Icon,
     XMarkIcon,
 } from '@heroicons/react/24/outline'
@@ -21,6 +22,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, helmcode_logo }) 
     const navigation = [
         { name: 'Home', href: '/', icon: HomeIcon, current: location.pathname === '/' },
         { name: 'Turistas', href: '/tourists', icon: UserGroupIcon, current: location.pathname === '/tourists' },
+        { name: 'Vía de acceso', href: '/access-road', icon: PaperAirplaneIcon, current: location.pathname === '/access-road' },
     ]
 
     const currentPage = navigation.find(item => item.href === location.pathname);

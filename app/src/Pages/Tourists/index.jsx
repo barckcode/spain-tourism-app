@@ -4,8 +4,8 @@ import SelectableInput from '../../Components/SelectableInput';
 import HistogramChart from "../../Components/HistogramChart"
 import LineChart from '../../Components/LineChart';
 import DinamicTable from '../../Components/DinamicTable';
-import useTouristData from '../../hooks/data/useTouristData';
-import useTouristDataProcessing from '../../hooks/data/useTouristDataProcessing';
+import useTouristData from '../../Hooks/data/useTouristData';
+import useTouristDataProcessing from '../../Hooks/data/useTouristDataProcessing';
 
 
 const communities = [
