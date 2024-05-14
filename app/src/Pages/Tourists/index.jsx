@@ -28,7 +28,7 @@ export default function Tourists() {
             <h1 className='font-bold text-center text-2xl' >Comunidades Autónomas con más afluencia de turistas</h1>
             <p className='pt-8 font-bold text-center text-xs' >Datos desde el 10/2015 al 03/2024</p>
             <SelectableInput
-                communities={communities}
+                options={communities}
                 selected={selected}
                 setSelected={setSelected}
             />
