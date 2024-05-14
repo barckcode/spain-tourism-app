@@ -1,12 +1,12 @@
-// import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Combobox, ComboboxButton, ComboboxInput, ComboboxOption, ComboboxOptions, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/20/solid';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 
 
-export default function SelectableInput({ communities, selected, setSelected, query, setQuery }) {
-    // const [query, setQuery] = useState('')
+export default function SelectableInput({ communities, selected, setSelected }) {
+    const [query, setQuery] = useState('')
     const filteredCommunities = query === ''
         ? communities
         : communities.filter((community) => community.name.toLowerCase().includes(query.toLowerCase()));

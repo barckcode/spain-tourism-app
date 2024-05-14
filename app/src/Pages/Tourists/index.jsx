@@ -19,7 +19,6 @@ const communities = [
 
 export default function Tourists() {
     const [selected, setSelected] = useState(communities[0])
-    const [query, setQuery] = useState('')
     const {histogramChartData, lineChartData, isLoading, error} = useTouristData(selected)
     const { maxTouristsByYear, minTouristsByYear } = useTouristDataProcessing(histogramChartData);
 
@@ -31,8 +30,6 @@ export default function Tourists() {
                 communities={communities}
                 selected={selected}
                 setSelected={setSelected}
-                query={query}
-                setQuery={setQuery}
             />
             {isLoading ? (
                 <p>Cargando datos...</p>
