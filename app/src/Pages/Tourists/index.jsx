@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Spinner from '../../Components/Spinner';
 import SelectableInput from '../../Components/SelectableInput';
 import HistogramChart from "../../Components/HistogramChart"
 import LineChart from '../../Components/LineChart';
@@ -32,7 +33,10 @@ export default function Tourists() {
                 setSelected={setSelected}
             />
             {isLoading ? (
-                <p>Cargando datos...</p>
+                // <p>Cargando datos...</p>
+                <div className='flex justify-center items-center h-full'>
+                    <Spinner />
+                </div>
             ) : error ? (
                 <p>Error: {error}</p>
             ) : (
