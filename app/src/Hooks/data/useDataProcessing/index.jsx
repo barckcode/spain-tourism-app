@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 
-export default function useTouristDataProcessing(dataBase, accumulatedAnnualData) {
-    const [maxTouristsByYear, setMaxTouristsByYear] = useState([]);
-    const [minTouristsByYear, setMinTouristsByYear] = useState([]);
+export default function useDataProcessing(dataBase, accumulatedAnnualData) {
+    const [maxDataByYear, setMaxDataByYear] = useState([]);
+    const [minDataByYear, setMinDataByYear] = useState([]);
     const [lastValidDataByYear, setLastValidDataByYear] = useState([]);
 
     useEffect(() => {
@@ -26,8 +26,8 @@ export default function useTouristDataProcessing(dataBase, accumulatedAnnualData
                 return data.reduce((min, item) => !min || parseFloat(item.value) < parseFloat(min.value) ? item : min, null);
             });
 
-            setMaxTouristsByYear(maxData);
-            setMinTouristsByYear(minData);
+            setMaxDataByYear(maxData);
+            setMinDataByYear(minData);
         };
 
         if (dataBase.length > 0) {
@@ -54,9 +54,10 @@ export default function useTouristDataProcessing(dataBase, accumulatedAnnualData
         }
     }, [accumulatedAnnualData]);
 
-    return { maxTouristsByYear, minTouristsByYear, lastValidDataByYear };
+    return { maxDataByYear, minDataByYear, lastValidDataByYear };
 }
 
-useTouristDataProcessing.propTypes = {
+useDataProcessing.propTypes = {
     dataBase: PropTypes.array.isRequired,
+    accumulatedAnnualData: PropTypes.array.isRequired,
 };

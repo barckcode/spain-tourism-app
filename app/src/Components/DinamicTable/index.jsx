@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 
-export default function DinamicTables({ data, title }) {
+export default function DinamicTables({ data, title, first_columm_title, second_columm_title, third_column_title }) {
     const dataByYear = data.reduce((acc, item) => {
         const year = new Date(item.time).getFullYear();
         if (!acc[year]) {
@@ -29,9 +29,9 @@ export default function DinamicTables({ data, title }) {
             <caption className="text-xl font-bold p-4">{title}</caption>
             <thead>
                 <tr>
-                    <th className="p-2 bg-indigo-600 text-indigo-100">Año</th>
-                    <th className="p-2 bg-indigo-600 text-indigo-100">Mes</th>
-                    <th className="p-2 bg-indigo-600 text-right text-indigo-100">Nº de turistas</th>
+                    <th className="p-2 bg-indigo-600 text-indigo-100">{first_columm_title}</th>
+                    <th className="p-2 bg-indigo-600 text-indigo-100">{second_columm_title}</th>
+                    <th className="p-2 bg-indigo-600 text-right text-indigo-100">{third_column_title}</th>
                 </tr>
             </thead>
             <tbody>
@@ -59,4 +59,7 @@ export default function DinamicTables({ data, title }) {
 DinamicTables.propTypes = {
     data: PropTypes.array.isRequired,
     title: PropTypes.string.isRequired,
+    first_columm_title: PropTypes.string.isRequired,
+    second_columm_title: PropTypes.string.isRequired,
+    third_column_title: PropTypes.string.isRequired,
 };

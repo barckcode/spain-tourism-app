@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const spain_turism_api_url = import.meta.env.VITE_SPAIN_TURISM_API;
 
 
-export default function useTouristData(selectedCommunity) {
+export default function useGetData(selectedQuery, endpoint, baseQuery) {
     const [dataBase, setDataBase] = useState([]);
     const [annualVariationData, setAnnualVariationDataData] = useState([]);
     const [accumulatedAnnualData, setAccumulatedAnnualData] = useState([]);
@@ -13,13 +13,13 @@ export default function useTouristData(selectedCommunity) {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        if (!selectedCommunity) return;
+        if (!selectedQuery) return;
 
         const fetchDataBase = async () => {
             setIsLoading(true);
             setError(null);
             try {
-                const response = await fetch(`${spain_turism_api_url}/tourists?autonomous_community=${encodeURIComponent(selectedCommunity.name)}`);
+                const response = await fetch(`${spain_turism_api_url}/${endpoint}?${baseQuery}=${encodeURIComponent(selectedQuery.name)}`);
                 if (!response.ok) throw new Error('Network response was not ok');
                 const jsonData = await response.json();
                 setDataBase(jsonData);
@@ -32,7 +32,7 @@ export default function useTouristData(selectedCommunity) {
 
         const fetchAnnualVariationData = async () => {
             try {
-                const response = await fetch(`${spain_turism_api_url}/tourists?autonomous_community=${encodeURIComponent(selectedCommunity.name)}&data_type=variaci%C3%B3n%20anual`);
+                const response = await fetch(`${spain_turism_api_url}/${endpoint}?${baseQuery}=${encodeURIComponent(selectedQuery.name)}&data_type=variación%20anual`);
                 if (!response.ok) throw new Error('Network response was not ok');
                 const jsonData = await response.json();
                 setAnnualVariationDataData(jsonData);
@@ -45,7 +45,7 @@ export default function useTouristData(selectedCommunity) {
 
         const fetchAccumulatedAnnualData = async () => {
             try {
-                const response = await fetch(`${spain_turism_api_url}/tourists?autonomous_community=${encodeURIComponent(selectedCommunity.name)}&data_type=acumulado`);
+                const response = await fetch(`${spain_turism_api_url}/${endpoint}?${baseQuery}=${encodeURIComponent(selectedQuery.name)}&data_type=acumulado`);
                 if (!response.ok) throw new Error('Network response was not ok');
                 const jsonData = await response.json();
                 setAccumulatedAnnualData(jsonData);
@@ -59,11 +59,13 @@ export default function useTouristData(selectedCommunity) {
         fetchDataBase();
         fetchAnnualVariationData();
         fetchAccumulatedAnnualData();
-    }, [selectedCommunity]);
+    }, [selectedQuery, endpoint, baseQuery]);
 
     return { dataBase, annualVariationData, accumulatedAnnualData, isLoading, error };
 }
 
-useTouristData.propTypes = {
-    selectedCommunity: PropTypes.object,
+useGetData.propTypes = {
+    selectedQuery: PropTypes.object,
+    endpoint: PropTypes.string,
+    baseQuery: PropTypes.string
 };
