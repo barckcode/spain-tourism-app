@@ -3,6 +3,7 @@ import Home from '../Pages/Home'
 import NotFound from '../Pages/NotFound'
 import Tourists from '../Pages/Tourists'
 import AccessRoute from '../Pages/AccessRoute'
+import AccommodationType from '../Pages/AccommodationType'
 
 
 export default function AppRoutes() {
@@ -11,6 +12,7 @@ export default function AppRoutes() {
         { path: '/*', element: <NotFound /> },
         { path: '/tourists', element: <Tourists /> },
         { path: '/access-road', element: <AccessRoute /> },
+        { path: '/accommodation-type', element: <AccommodationType /> },
     ])
 
     return routes
